@@ -1,0 +1,7 @@
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.csproj.AssemblyReference.cache
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.AssemblyInfoInputs.cache
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.AssemblyInfo.cs
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.MvcApplicationPartsAssemblyInfo.cs
+C:\xampp\htdocs\Teoria\TuChance\obj\Debug\net5.0\TuChance.MvcApplicationPartsAssemblyInfo.cache
