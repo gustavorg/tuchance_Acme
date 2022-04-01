@@ -53,7 +53,7 @@ namespace TuChance.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
                 string token2 = userId.ToString();
                 // attach user to context on successful jwt validation
-                context.Items["User"] = authenticateService.GetSeed(token2,_ref);
+                context.Items["User"] = authenticateService.GetSeed(token2);
             }
             catch
             {

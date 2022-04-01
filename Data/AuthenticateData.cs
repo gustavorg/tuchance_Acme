@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using TuChance.Library;
-using TuChance.Entities;
-using TuChance.Models;
 using Microsoft.Extensions.Options;
 using TuChance.Helpers;
 using System.Data.SqlClient;
 using TuChance.Dtos;
+using TuChance.Payloads;
 
 namespace TuChance.Data
 {
@@ -18,12 +16,12 @@ namespace TuChance.Data
 
         }
 
-		public UserDto GetByEmail(AuthenticateRequest model)
+		public AuthenticateEmailDto GetByEmail(GetAuthenticatePayload payload)
 		{
-			UserDto rtn = null;
+			AuthenticateEmailDto rtn = null;
 
 			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pemail", Value = model.Email, DbType = DbType.String}
+				new SqlParameter{ ParameterName= "@pemail", Value = payload.Email, DbType = DbType.String}
 			};
 
 			DataTable dt = base.ExecuteDataTable("usp_user_s_email", parameters);
@@ -31,35 +29,13 @@ namespace TuChance.Data
 			if (dt != null && dt.Rows.Count > 0)
 			{
 				DataRow dr = dt.Rows[0];
-				rtn = new UserDto
+				rtn = new AuthenticateEmailDto
 				{
 					Id = Int32.Parse(dr["id"].ToString()),
-					Name = dr["name"].ToString(),
-					LastName = dr["lastName"].ToString(),
-					Email = dr["email"].ToString(),
+					Password = dr["name"].ToString(),
+					Token = dr["token"].ToString(),
 					Role = dr["role"].ToString()
 				};
-			}
-
-			return rtn;
-		}
-
-		public bool Register(RegisterRequest model)
-		{
-			bool rtn = false;
-
-			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pemail", Value = model.Email},
-				new SqlParameter{ ParameterName= "@pname", Value = model.Names},
-				new SqlParameter{ ParameterName= "@plastname", Value = model.LastName},
-				new SqlParameter{ ParameterName = "@result", Direction = ParameterDirection.Output, DbType = DbType.Int32 }
-			};
-
-			SqlParameter[] outputs = base.ExecuteNonQuery("usp_user_i_client", parameters);
-
-			if (outputs != null && outputs.Length > 0)
-			{
-				rtn = Convert.ToBoolean(outputs[0].Value);
 			}
 
 			return rtn;
@@ -84,12 +60,11 @@ namespace TuChance.Data
 					Name = dr["name"].ToString(),
 					LastName = dr["lastName"].ToString(),
 					Email = dr["email"].ToString(),
-					Role = dr["role"].ToString()
+					IdRole = Int32.Parse(dr["role"].ToString())
 				};
 			}
 			return rtn;
 		}
-
 		public bool SaveToken(int idUser, string token)
 		{
 			bool rtn = false;

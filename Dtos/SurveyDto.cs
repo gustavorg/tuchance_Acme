@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TuChance.Entities
+namespace TuChance.Dtos
 {
     public class SurveyDto
     {

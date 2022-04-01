@@ -1,4 +1,4 @@
-﻿using TuChance.Entities;
+﻿using TuChance.Dtos;
 using TuChance.Payloads;
 
 namespace TuChance.Interfaces

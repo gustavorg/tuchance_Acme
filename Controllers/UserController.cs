@@ -23,14 +23,14 @@ namespace TuChance.Controllers
             try
             {
                 var response = _userService.CreateUser(model);
-                if (response != null) { return Ok(new { data = response, message = ""}); }
+                if (response != null) { return Ok(new { data = response, message = "the user was created successfully" }); }
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message});
             }
 
-            return Unauthorized(new { data = new { }, message = "el correo ingresado ya existe"});
+            return Unauthorized(new { data = new { }, message = "the email entered already exists"});
         }
     }
 }

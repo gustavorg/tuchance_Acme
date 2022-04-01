@@ -4,7 +4,7 @@ using TuChance.Library;
 using TuChance.Entities;
 using TuChance.Helpers;
 using Microsoft.Extensions.Options;
-using TuChance.Models;
+using TuChance.Dtos;
 using System;
 using System.Data.SqlClient;
 using TuChance.Payloads;

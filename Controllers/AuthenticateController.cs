@@ -2,7 +2,6 @@
 using TuChance.Interfaces;
 using Microsoft.Net.Http.Headers;
 using System;
-using System.Threading.Tasks;
 using TuChance.Payloads;
 
 namespace TuChance.Controllers
@@ -40,8 +39,7 @@ namespace TuChance.Controllers
             try
             {
                 var _bearer_token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
-                var _ref = Request.Headers["_ref"].ToString();
-                var users = _authenticateService.GetSeed(_bearer_token, _ref);
+                var users = _authenticateService.GetSeed(_bearer_token);
                 if (users.Id > 0)
                 {
                     return Ok(new { data = users, message = ""});
@@ -51,7 +49,7 @@ namespace TuChance.Controllers
             {
                 return BadRequest(new { message = ex.Message});
             }
-            return Unauthorized(new { data = new { }, message = "Token not found"});
+            return Unauthorized(new { data = new { }, message = "User not found"});
         }
     }
 }

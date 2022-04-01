@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using TuChance.Interfaces;
-using TuChance.Entities;
 using System;
-using TuChance.Models;
+using TuChance.Dtos;
 using TuChance.Payloads;
 
 namespace TuChance.Controllers

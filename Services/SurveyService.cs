@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TuChance.Entities;
+using TuChance.Dtos;
 using TuChance.Data;
 using TuChance.Interfaces;
 using TuChance.Helpers;
