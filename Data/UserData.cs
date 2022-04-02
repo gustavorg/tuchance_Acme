@@ -16,14 +16,11 @@ namespace TuChance.Data
 
         }
 
-		public UserDto Register(CreateUserPayload payload)
+		public int CreateClient()
 		{
-			UserDto rtn = null;
+			int rtn = 0;
 
 			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pemail", Value = payload.Email},
-				new SqlParameter{ ParameterName= "@pname", Value = payload.Name},
-				new SqlParameter{ ParameterName= "@plastname", Value = payload.LastName},
 				new SqlParameter{ ParameterName = "@result", Direction = ParameterDirection.Output, DbType = DbType.Int32 }
 			};
 
@@ -31,41 +28,47 @@ namespace TuChance.Data
 
 			if (outputs != null && outputs.Length > 0)
 			{
-				rtn = new UserDto()
-				{
-					Id = Convert.ToInt32(outputs[0].Value),
-					Email = payload.Email,
-					IdRole = 2,
-					Name = payload.Name,
-					LastName = payload.LastName
-				};
+				rtn = Convert.ToInt32(outputs[0].Value);
 			}
 
 			return rtn;
 		}
 
-		public UserDto GetSeed(string token)
+		public UserDto CreateUser(CreateUserPayload payload)
 		{
 			UserDto rtn = null;
+			DateTime datetime = DateTime.UtcNow;
 
 			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pemail", Value = token, DbType = DbType.String}
+				new SqlParameter{ ParameterName= "@pemail", Value = payload.Email},
+				new SqlParameter{ ParameterName= "@pname", Value = payload.Name},
+				new SqlParameter{ ParameterName= "@plastname", Value = payload.LastName},
+				new SqlParameter{ ParameterName= "@pidrole", Value = payload.IdRole},
+				new SqlParameter{ ParameterName= "@ppassword", Value = payload.Password},
+				new SqlParameter{ ParameterName= "@pdate", Value = datetime},
+				new SqlParameter{ ParameterName = "@result", Direction = ParameterDirection.Output, DbType = DbType.Int32 }
 			};
 
-			DataTable dt = base.ExecuteDataTable("usp_user_s_token", parameters);
+			SqlParameter[] outputs = base.ExecuteNonQuery("usp_user_i_user", parameters);
 
-			if (dt != null && dt.Rows.Count > 0)
+			if (outputs != null && outputs.Length > 0)
 			{
-				DataRow dr = dt.Rows[0];
-				rtn = new UserDto
-				{
-					Id = Int32.Parse(dr["id"].ToString()),
-					Name = dr["name"].ToString(),
-					LastName = dr["lastName"].ToString(),
-					Email = dr["email"].ToString(),
-					IdRole = Int32.Parse(dr["role"].ToString())
-				};
+				int id = Convert.ToInt32(outputs[0].Value);
+                if (id > 0)
+                {
+					rtn = new UserDto()
+					{
+						Id = id,
+						Email = payload.Email,
+						IdRole = Convert.ToInt32(payload.IdRole),
+						Name = payload.Name,
+						LastName = payload.LastName,
+						CreatedAt = datetime,
+						UpdatedAt = datetime
+					};
+				}
 			}
+
 			return rtn;
 		}
 

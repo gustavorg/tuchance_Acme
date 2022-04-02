@@ -6,7 +6,7 @@ namespace TuChance.Interfaces
 {
    public interface IAuthenticateService
     {
-        AuthenticateDto Authenticate(GetAuthenticatePayload model);
-        UserDto GetSeed(string token);
+        AuthenticateDto Authenticate(GetAuthenticatePayload payload);
+        UserDto GetSeed(int idUser,string token);
     }
 }

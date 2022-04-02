@@ -32,8 +32,7 @@ namespace TuChance.Data
 				rtn = new AuthenticateEmailDto
 				{
 					Id = Int32.Parse(dr["id"].ToString()),
-					Password = dr["name"].ToString(),
-					Token = dr["token"].ToString(),
+					Password = dr["password"].ToString(),
 					Role = dr["role"].ToString()
 				};
 			}
@@ -41,12 +40,13 @@ namespace TuChance.Data
 			return rtn;
 		}
 
-		public UserDto GetSeed(string token)
+		public UserDto GetSeed(int idUser, string token)
 		{
 			UserDto rtn = null;
 
 			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pemail", Value = token, DbType = DbType.String}
+				new SqlParameter{ ParameterName= "@piduser", Value = idUser},
+				new SqlParameter{ ParameterName= "@ptoken", Value = token, DbType = DbType.String}
 			};
 
 			DataTable dt = base.ExecuteDataTable("usp_user_s_token", parameters);
@@ -60,7 +60,7 @@ namespace TuChance.Data
 					Name = dr["name"].ToString(),
 					LastName = dr["lastName"].ToString(),
 					Email = dr["email"].ToString(),
-					IdRole = Int32.Parse(dr["role"].ToString())
+					IdRole = Int32.Parse(dr["idRole"].ToString())
 				};
 			}
 			return rtn;
@@ -70,7 +70,7 @@ namespace TuChance.Data
 			bool rtn = false;
 
 			SqlParameter[] parameters = {
-				new SqlParameter{ ParameterName= "@pidUser", Value = idUser},
+				new SqlParameter{ ParameterName= "@pid", Value = idUser},
 				new SqlParameter{ ParameterName= "@ptoken", Value = token},
 				new SqlParameter{ ParameterName = "@result", Direction = ParameterDirection.Output, DbType = DbType.Int32 }
 			};

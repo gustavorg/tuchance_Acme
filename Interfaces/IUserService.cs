@@ -5,6 +5,6 @@ namespace TuChance.Interfaces
 {
    public interface IUserService
     {
-        UserDto CreateUser(CreateUserPayload model);
+        UserDto CreateUser(CreateUserPayload payload);
     }
 }

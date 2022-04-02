@@ -7,9 +7,11 @@ namespace TuChance.Interfaces
 {
     public interface ISurveyService
     {
-        List<SurveyDto> GetAll();
+        List<GetSurveyDto> GetAll();
         SurveyDto CreateSurvey(CreateSurveyPayload payload);
         SurveyDto UpdateSurvey(UpdateSurveyPayload payload);
         bool DeleteSurvey(DeleteSurveyPayload payload);
+        SurveyTokenDto GetSurveyByToken(string token);
+        SurveyUserDto SaveAnswerSurvey(SurveyUserPayload payload);
     }
 }

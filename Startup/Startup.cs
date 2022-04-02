@@ -29,8 +29,10 @@ namespace TuChance
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
+            services.AddScoped<IQuestionService, QuestionService>();
 
             services.AddSwaggerGen(c =>
             {

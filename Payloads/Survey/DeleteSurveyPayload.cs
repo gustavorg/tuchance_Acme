@@ -6,6 +6,6 @@ namespace TuChance.Payloads
     public class DeleteSurveyPayload
     {
         [Required]
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
 }

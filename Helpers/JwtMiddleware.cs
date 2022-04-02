@@ -25,14 +25,13 @@ namespace TuChance.Helpers
         public async Task Invoke(HttpContext context, IAuthenticateService authenticateService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var _ref = context.Request.Headers["_ref"].ToString();
             if (token != null)
-                AttachUserToContext(context, authenticateService, token, _ref);
+                AttachUserToContext(context, authenticateService, token);
 
             await _next(context);
         }
 
-        private void AttachUserToContext(HttpContext context, IAuthenticateService authenticateService, string token, string _ref)
+        private void AttachUserToContext(HttpContext context, IAuthenticateService authenticateService, string token)
         {
             try
             {
@@ -51,9 +50,8 @@ namespace TuChance.Helpers
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-                string token2 = userId.ToString();
                 // attach user to context on successful jwt validation
-                context.Items["User"] = authenticateService.GetSeed(token2);
+                context.Items["User"] = authenticateService.GetSeed(userId,token);
             }
             catch
             {

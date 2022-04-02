@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TuChance.Dtos;
 
 namespace TuChance.Payloads
 {
@@ -11,6 +12,6 @@ namespace TuChance.Payloads
         [Required]
         public string Description { get; set; }
 
-        public List<CreateQuestionPayload> Questions { get; set; }
+        public List<QuestionDto> Questions { get; set; }
     }
 }

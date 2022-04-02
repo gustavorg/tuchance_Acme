@@ -30,20 +30,17 @@ namespace TuChance.Services
         public AuthenticateDto Authenticate(GetAuthenticatePayload payload)
         {
             var user = _authenticateData.GetByEmail(payload);
-            if (user != null)
+            if (user != null && _utilities.DecryptString(user.Password) == payload.Password)
             {
-                if (_utilities.DecryptString(user.Password) == payload.Password)
-                {
                     AuthenticateDto response = new(user.Role, GenerateJwtToken(user.Id));
                     return response;
-                }
             }
             return null;
         }
 
-        public UserDto GetSeed(string token)
+        public UserDto GetSeed(int idUser, string token)
         {
-            return _authenticateData.GetSeed(token);
+            return _authenticateData.GetSeed(idUser,token);
         }
 
         private string GenerateJwtToken(int idUser)

@@ -12,7 +12,7 @@ namespace TuChance.Payloads
         public string LastName { get; set; }
 
         [Required]
-        public string IdRole { get; set; }
+        public int IdRole { get; set; }
 
         [Required]
         public string Email { get; set; }

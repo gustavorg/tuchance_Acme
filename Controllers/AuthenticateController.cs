@@ -39,7 +39,7 @@ namespace TuChance.Controllers
             try
             {
                 var _bearer_token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
-                var users = _authenticateService.GetSeed(_bearer_token);
+                var users = _authenticateService.GetSeed(0,_bearer_token);
                 if (users.Id > 0)
                 {
                     return Ok(new { data = users, message = ""});

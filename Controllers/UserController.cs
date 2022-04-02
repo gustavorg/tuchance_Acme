@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TuChance.Interfaces;
-using Microsoft.Net.Http.Headers;
 using System;
-using System.Threading.Tasks;
 using TuChance.Payloads;
+using TuChance.Library;
 
 namespace TuChance.Controllers
 {
@@ -18,11 +17,11 @@ namespace TuChance.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult CreateUser(CreateUserPayload model)
+        public IActionResult CreateUser(CreateUserPayload payload)
         {
             try
             {
-                var response = _userService.CreateUser(model);
+                var response = _userService.CreateUser(payload);
                 if (response != null) { return Ok(new { data = response, message = "the user was created successfully" }); }
             }
             catch (Exception ex)

@@ -16,13 +16,11 @@ namespace TuChance.Services
 {
     public class UserService : IUserService
     {
-        private readonly AppSettings _appSettings;
         private readonly UtilitiesExtensions _utilities;
         private readonly UserData _userData;
 
-        public UserService(IOptions<AppSettings> appSettings, UtilitiesExtensions utilities)
+        public UserService(IOptions<AppSettings> appSettings)
         {
-            _appSettings = appSettings.Value;
             _userData = new UserData(appSettings);
             _utilities = new UtilitiesExtensions(appSettings);
         }
@@ -30,12 +28,17 @@ namespace TuChance.Services
         public UserDto CreateUser(CreateUserPayload payload)
         {
             payload.Password = _utilities.EncryptString(payload.Password);
-            var res = _userData.Register(payload);
+            var res = _userData.CreateUser(payload);
             if (res != null)
             {
                 return res;
             }
             return null;
+        }
+
+        public int CreateClient()
+        {
+            return _userData.CreateClient();
         }
 
     }
